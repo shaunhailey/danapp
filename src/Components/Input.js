@@ -16,7 +16,27 @@ class Input extends Component {
     this.handleNextPayDate = this.handleNextPayDate.bind(this)
     this.handleCurrentBankBalance = this.handleCurrentBankBalance.bind(this)
     this.handleNetPaycheckAmount = this.handleNetPaycheckAmount.bind(this)
-    this.dailyMinExpenses = this.dailyMinExpenses.bind(this)
+    this.handleDailyMinExpenses = this.handleDailyMinExpenses.bind(this)
+  }
+
+  handleCurrentDate(e) {
+    this.setState({ value: e.target.value })
+  }
+
+  handleNextPayDate(e) {
+    this.setState({ value: e.target.value })
+  }
+
+  handleCurrentBankBalance(e) {
+    this.setState({ value: e.target.value })
+  }
+
+  handleNetPaycheckAmount(e) {
+    this.setState({ value: e.target.value })
+  }
+
+  handleDailyMinExpenses(e) {
+    this.setState({ value: e.target.value })
   }
 
   render() {
@@ -36,6 +56,7 @@ class Input extends Component {
           </label>
           <input type="submit" value="submit" />
         </form>
+        <InputPayDates />
         <form>
           <label>
             Current Bank Balance:
@@ -57,7 +78,6 @@ class Input extends Component {
           </label>
           <input type="submit" value="submit" />
         </form>
-        <InputPayDates />
       </div>
     )
   }
