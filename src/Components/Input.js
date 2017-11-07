@@ -1,26 +1,22 @@
 import React, { Component } from 'react'
+import Moment from 'react-moment'
 import InputPayDates from './InputPayDates.js'
+import Date from './Date.js'
 
 class Input extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentDate: '',
       nextPayDate: '',
       currentBankBalance: 0,
       netPaycheckAmount: 0,
       dailyMinExpenses: 0
     }
 
-    this.handleCurrentDate = this.handleCurrentDate.bind(this)
     this.handleNextPayDate = this.handleNextPayDate.bind(this)
     this.handleCurrentBankBalance = this.handleCurrentBankBalance.bind(this)
     this.handleNetPaycheckAmount = this.handleNetPaycheckAmount.bind(this)
     this.handleDailyMinExpenses = this.handleDailyMinExpenses.bind(this)
-  }
-
-  handleCurrentDate(e) {
-    this.setState({ value: e.target.value })
   }
 
   handleNextPayDate(e) {
@@ -42,13 +38,10 @@ class Input extends Component {
   render() {
     return (
       <div className="Input">
-        <form>
-          <label>
-            Current Date:
-            <input type="date" id="date" value={this.state.currentDate} />
-          </label>
-          <input type="submit" value="submit" />
-        </form>
+        <label>
+          Current Date:
+          <Date />
+        </label>
         <form>
           <label>
             Next Pay Date:
@@ -56,6 +49,7 @@ class Input extends Component {
           </label>
           <input type="submit" value="submit" />
         </form>
+        <DateMath />
         <InputPayDates />
         <form>
           <label>
