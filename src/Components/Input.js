@@ -20,14 +20,6 @@ class Input extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleDate = this.handleDate.bind(this)
-    this.handleFromNow = this.handleFromNow.bind(this)
-  }
-
-  handleFromNow(e) {
-    this.setState({
-      remainder: ''
-    })
-    console.log(remainder)
   }
 
   handleDate(e) {
@@ -52,7 +44,9 @@ class Input extends Component {
     const difference = currentDate.to(nextPayDate, true, 'days')
     var numb = difference.match(/\d+/g, '') + ''
     var numbs = numb.split(',').join('')
-    const currentBankBalance = this.state.currentBankBalance
+    var evenDaily = currentBankBalance / numbs
+
+    var currentBankBalance = this.state.currentBankBalance
     const netPaycheckAmount = this.state.netPaycheckAmount
     const dailyMinExpenses = this.state.dailyMinExpenses
     const fromNow = (
@@ -61,15 +55,17 @@ class Input extends Component {
       </span>
     )
     console.log(nextPayDate)
-    console.log(difference)
+    console.log(currentBankBalance / numbs)
+    console.log(currentBankBalance)
     console.log(numbs)
+    console.log(evenDaily)
+
     return (
       <div className="Input">
         <form>
           <label>
             Current Date:
             <Date />
-            <DateMath />
           </label>
         </form>
         <form>
@@ -80,10 +76,8 @@ class Input extends Component {
         </form>
         <label>
           Days Until Pay Day :
-          <input name="fromRightNow" type="hidden" onChange={this.handleFromNow} />
           {fromNow}
         </label>
-        <InputPayDates />
         <form>
           <label>
             Current Bank Balance:
@@ -91,7 +85,7 @@ class Input extends Component {
               name="currentBankBalance"
               type="number"
               placeholder="example: 110.75"
-              value={this.state.currentBankBalance}
+              value={currentBankBalance}
               onChange={this.handleInputChange}
             />
           </label>
