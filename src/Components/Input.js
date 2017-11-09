@@ -12,10 +12,13 @@ class Input extends Component {
     super(props)
     this.state = {
       difference: '',
-      nextPayDate: '',
+      nextPayDate: '01/01/2020',
       currentBankBalance: 0,
       netPaycheckAmount: 0,
-      dailyMinExpenses: 0
+      dailyMinExpenses: 0,
+      numb: 0,
+      numbs: 0,
+      evenADollar: 1
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -24,8 +27,7 @@ class Input extends Component {
 
   handleDate(e) {
     this.setState({
-      nextPayDate: '',
-      tester: ''
+      nextPayDate: ''
     })
   }
 
@@ -39,26 +41,34 @@ class Input extends Component {
   }
 
   render() {
+    //next paycheck date
     const nextPayDate = this.state.nextPayDate
+    //uses Moment.js to display current date
     const currentDate = moment()
+    //uses Moment.js to measure number of days to next pay date
     const difference = currentDate.to(nextPayDate, true, 'days')
+    //difference is a string output, so using below to make it a number
     var numb = difference.match(/\d+/g, '') + ''
     var numbs = numb.split(',').join('')
-    var evenDaily = currentBankBalance / numbs
-
+    //calculates bank balance divided by days remaining to paycheck
+    var evenDay = this.state.currentBankBalance / numbs
+    //converts output to two decimal max
+    var evenADollar = evenDay.toFixed(2)
+    //slaps a $ onto the result for display
+    var evenDaily = '$' + evenADollar
+    //user-input bank balance
     var currentBankBalance = this.state.currentBankBalance
     const netPaycheckAmount = this.state.netPaycheckAmount
+    //user input minimum daily expenses
     const dailyMinExpenses = this.state.dailyMinExpenses
-    const fromNow = (
-      <span>
-        {difference}
-      </span>
-    )
+    const bigDollarSpending = currentBankBalance - dailyMinExpenses * numbs
+    const bigSpending = '$' + bigDollarSpending
     console.log(nextPayDate)
     console.log(currentBankBalance / numbs)
     console.log(currentBankBalance)
     console.log(numbs)
     console.log(evenDaily)
+    console.log(evenADollar * numbs - dailyMinExpenses * numbs)
 
     return (
       <div className="Input">
@@ -76,7 +86,7 @@ class Input extends Component {
         </form>
         <label>
           Days Until Pay Day :
-          {fromNow}
+          {difference}
         </label>
         <form>
           <label>
@@ -86,18 +96,6 @@ class Input extends Component {
               type="number"
               placeholder="example: 110.75"
               value={currentBankBalance}
-              onChange={this.handleInputChange}
-            />
-          </label>
-        </form>
-        <form>
-          <label>
-            Net Paycheck Amount:
-            <input
-              name="netPaycheckAmount"
-              type="number"
-              placeholder="example: 110.75"
-              value={this.state.netPaycheckAmount}
               onChange={this.handleInputChange}
             />
           </label>
@@ -114,6 +112,16 @@ class Input extends Component {
             />
           </label>
         </form>
+        <div className="results">
+          <p>Amount you can spend evenly each day prior to payday</p>
+          <output>
+            {evenDaily}
+          </output>
+          <p>Max Amount You Can Spend Once Before Payday</p>
+          <output>
+            {bigSpending}
+          </output>
+        </div>
       </div>
     )
   }

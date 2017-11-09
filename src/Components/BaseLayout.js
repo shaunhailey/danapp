@@ -7,7 +7,6 @@ class BaseLayout extends Component {
     return (
       <div className="baseLayout">
         <Input />
-        <Results />
       </div>
     )
   }

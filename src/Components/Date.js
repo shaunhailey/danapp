@@ -10,7 +10,6 @@ class Date extends Component {
 
   handleChange(e) {
     this.props.handleDateChange(e.target.value)
-    console.log(e.target.value)
   }
 
   render() {
@@ -19,13 +18,7 @@ class Date extends Component {
 
     return (
       <div className="currentDate">
-        <Moment
-          className="currentDate"
-          format="MM/DD/YYYY"
-          onChange={val => {
-            console.log(val)
-          }}
-        />
+        <Moment className="currentDate" format="MM/DD/YYYY" onChange={val => {}} />
       </div>
     )
   }
